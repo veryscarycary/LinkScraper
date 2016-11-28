@@ -12,6 +12,7 @@ class Main extends React.Component {
       <div>
         <h1>Domain Analyzer</h1>
         <Input />
+        <div id="html"></div>
       </div>
     );
   }
