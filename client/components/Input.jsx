@@ -1,12 +1,17 @@
 import React from 'react';
+import normalizeUrl from 'normalize-url';
+import url from 'url';
+
+import Output from './Output';
 
 class Input extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       input: null,
-      depth: null
+      depth: null,
+      output: []
     };
 
     this.setInput = this.setInput.bind(this);
@@ -26,9 +31,15 @@ class Input extends React.Component {
     });
   }
 
+  normalizeURL() {
+
+  }
+
   // need to post url to backend to do the work
   // also might need to include same-origin header to pass it to backend
   getHTMLpage() {
+
+
     return fetch('/api/scrape', {
       method: 'POST',
       headers: {
@@ -36,11 +47,16 @@ class Input extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        url: this.state.input
+        url: normalizeUrl(this.state.input)
       })
     })
     .then(res => res.json())
-    .catch(err => console.log(err, 'There was an error getting the tickets!'));
+    .then(json => {
+      this.setState({
+        output: json
+      });
+    })
+    .catch(err => console.log(err, 'There was an error getting the domains back!'));
     // const myHeaders = new Headers({
     //   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     //   'Access-Control-Allow-Origin': '*',
@@ -72,12 +88,15 @@ class Input extends React.Component {
 
   render() {
     return (
-      <form>
-        <label htmlFor="depth">Link Depth</label><input type="number" id="depth" min="0" onChange={this.setDepth} />
-        <br />
-        <input type="text" id="input" onChange={this.setInput} />
-        <button type="button" onClick={this.getHTMLpage}>Submit</button>
-      </form>
+      <div>
+        <form>
+          <label htmlFor="depth">Link Depth</label><input type="number" id="depth" min="0" onChange={this.setDepth} />
+          <br />
+          <input type="text" id="input" onChange={this.setInput} />
+          <button type="button" onClick={this.getHTMLpage}>Submit</button>
+        </form>
+        <Output output={this.state.output} />
+      </div>
     );
   };
 };

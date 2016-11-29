@@ -7,12 +7,12 @@ class Main extends React.Component {
 
   }
 
+
   render() {
     return (
       <div>
         <h1>Domain Analyzer</h1>
         <Input />
-        <div id="html"></div>
       </div>
     );
   }

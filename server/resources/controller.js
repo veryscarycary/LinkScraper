@@ -4,23 +4,28 @@ const cheerio = require('cheerio');
 
 module.exports = {
   scrapeWebPage(req, res) {
-    let input = req.body;
+    let input = req.body.url;
 
-    request('http://www.google.com', (err, resp, body) => {
+    request(input, (err, resp, body) => {
       if (!err) {
         const $ = cheerio.load(body);
         var links = [];
 
-        // res.send(JSON.stringify(Array.isArray($('a'))));
+        // check each anchor tag on the page for a link
         $('a').each(function(i, link) {
-          // res.send(JSON.stringify(link));
-          var parsedUrl = url.parse($(this).attr('href')).hostname;
+          let href = $(this).attr('href');
 
-          if (links.indexOf(parsedUrl) === -1) {
-            links.push(parsedUrl);
+          if (href) {
+            let hostname = url.parse(href).hostname;
+            if (hostname) {
+              if (links.indexOf(hostname) === -1) {
+                links.push(hostname);
+              }
+            }
           }
         });
 
+        // return collected domains
         res.send(links);
       } else {
         console.log(err, 'ERROR in web scraper!');
