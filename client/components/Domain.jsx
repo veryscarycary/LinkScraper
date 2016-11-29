@@ -16,20 +16,18 @@ class Domain extends React.Component {
 
   render() {
     return (
-      <tbody>
-        <tr>
-          <td>{this.props.link}</td>
-          <td>
-            {!Array.isArray(this.state.output) ? <img className='loading' src={this.state.output} /> :
-              (<select>
-                {this.state.output.map((link) => (
-                  <option>{link}</option>
-                ))}
-              </select>)
-            }
-          </td>
-        </tr>
-      </tbody>
+      <tr>
+        <td>{this.props.link}</td>
+        <td>
+          {!Array.isArray(this.state.output) ? <img className='loading' src={this.state.output} /> :
+            (<select>
+              {this.state.output.map((link) => (
+                <option>{link}</option>
+              ))}
+            </select>)
+          }
+        </td>
+      </tr>
     );
   }
 };
