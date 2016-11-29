@@ -5,6 +5,7 @@ const cheerio = require('cheerio');
 module.exports = {
   scrapeWebPage(req, res) {
     let input = req.body.url;
+    let depth = req.body.depth || Number.POSITIVE_INFINITY
 
     request(input, (err, resp, body) => {
       if (!err) {
@@ -13,6 +14,7 @@ module.exports = {
 
         // check each anchor tag on the page for a link
         $('a').each(function(i, link) {
+          if (links.length >= depth) {return;}
           let href = $(this).attr('href');
 
           if (href) {
@@ -24,7 +26,6 @@ module.exports = {
             }
           }
         });
-
         // return collected domains
         res.send(links);
       } else {

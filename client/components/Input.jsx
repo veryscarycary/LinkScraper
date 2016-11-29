@@ -16,7 +16,6 @@ class Input extends React.Component {
 
     this.setInput = this.setInput.bind(this);
     this.setDepth = this.setDepth.bind(this);
-    this.getHTMLpage = this.getHTMLpage.bind(this);
   }
 
   setInput(e) {
@@ -37,9 +36,7 @@ class Input extends React.Component {
 
   // need to post url to backend to do the work
   // also might need to include same-origin header to pass it to backend
-  getHTMLpage() {
-
-
+  getDomains(context) {
     return fetch('/api/scrape', {
       method: 'POST',
       headers: {
@@ -47,44 +44,18 @@ class Input extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        url: normalizeUrl(this.state.input)
+        url: normalizeUrl(context.state.input),
+        depth: context.state.depth
       })
     })
     .then(res => res.json())
     .then(json => {
-      this.setState({
+      context.setState({
         output: json
       });
     })
     .catch(err => console.log(err, 'There was an error getting the domains back!'));
-    // const myHeaders = new Headers({
-    //   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-    //   'Access-Control-Allow-Origin': '*',
-    //   'Access-Control-Allow-Methods': 'DELETE, HEAD, GET, OPTIONS, POST, PUT',
-    //   'Accept': 'application/json',
-    //   'Content-Type': 'application/json'
-    // });
-    //
-    // const myInit = {
-    //   method: 'GET',
-    //   headers: myHeaders,
-    //   mode: 'cors',
-    //   cache: 'default'
-    // };
-    //
-    // return fetch(this.state.input, myInit)
-    // .then(res => {
-    //   alert(res);
-    //   // var div = document.createElement("div");
-    //   // var content = document.createTextNode(res);
-    //   // div.appendChild(child);
-    //   // document.body.appendChild(div);
-    // })
-    // .catch(err => console.log(err, 'There was an error getting the page!'));
   }
-
-  // on button submit, do a GET request and get the html back from the page
-  // look for anchor tags and href attrs, it looks like react Link tags are converted to anchor tags
 
   render() {
     return (
@@ -93,9 +64,9 @@ class Input extends React.Component {
           <label htmlFor="depth">Link Depth</label><input type="number" id="depth" min="0" onChange={this.setDepth} />
           <br />
           <input type="text" id="input" onChange={this.setInput} />
-          <button type="button" onClick={this.getHTMLpage}>Submit</button>
+          <button type="button" onClick={()=>{this.getDomains(this)}}>Submit</button>
         </form>
-        <Output output={this.state.output} />
+        <Output output={this.state.output} getDomains={this.getDomains} />
       </div>
     );
   };
