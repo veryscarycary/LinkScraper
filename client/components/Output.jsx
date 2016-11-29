@@ -18,7 +18,9 @@ class Output extends React.Component {
               <th>List of Urls</th>
             </tr>
             {this.props.output.map((link) => (
-              <Domain link={link} getDomains={this.props.getDomains} />
+              <Domain link={link}
+                getDomains={this.props.getDomains}
+              />
             ))}
           </tbody>
         </table>
