@@ -69,9 +69,9 @@ class Input extends React.Component {
     return (
       <div>
         <form>
-          <label htmlFor="depth">Link Depth</label><input type="number" id="depth" min="0" onChange={this.setDepth} />
+          <label htmlFor="depth">Link Depth</label><input type="number" id="depth" min="0" placeholder="e.g. 5" onChange={this.setDepth} />
           <br />
-          <input type="text" id="input" onChange={this.setInput} />
+          <input type="text" id="input" placeholder="e.g. www.google.com" onChange={this.setInput} />
           <button type="button" onClick={()=>{this.submit(this)}}>Submit</button>
         </form>
         <Output output={this.state.output} getDomains={this.getDomains} />

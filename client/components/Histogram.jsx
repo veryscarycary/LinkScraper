@@ -21,7 +21,6 @@ class Histogram extends React.Component {
   }
 
   debounceUpdate() {
-    alert('HELLO');
     var context = this;
 
     var el = document.getElementById('chart')
@@ -31,7 +30,6 @@ class Histogram extends React.Component {
     parent.appendChild(child);
 
 
-    console.log('RECEIVING PROPS');
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {

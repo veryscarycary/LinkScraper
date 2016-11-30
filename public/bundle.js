@@ -24407,10 +24407,6 @@
 	
 	var _DomainGraph2 = _interopRequireDefault(_DomainGraph);
 	
-	var _Histogram = __webpack_require__(237);
-	
-	var _Histogram2 = _interopRequireDefault(_Histogram);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24443,8 +24439,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'graphs' },
-	          _react2.default.createElement(_DomainGraph2.default, null),
-	          _react2.default.createElement(_Histogram2.default, null)
+	          _react2.default.createElement(_DomainGraph2.default, null)
 	        )
 	      );
 	    }
@@ -24588,9 +24583,9 @@
 	            { htmlFor: 'depth' },
 	            'Link Depth'
 	          ),
-	          _react2.default.createElement('input', { type: 'number', id: 'depth', min: '0', onChange: this.setDepth }),
+	          _react2.default.createElement('input', { type: 'number', id: 'depth', min: '0', placeholder: 'e.g. 5', onChange: this.setDepth }),
 	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('input', { type: 'text', id: 'input', onChange: this.setInput }),
+	          _react2.default.createElement('input', { type: 'text', id: 'input', placeholder: 'e.g. www.google.com', onChange: this.setInput }),
 	          _react2.default.createElement(
 	            'button',
 	            { type: 'button', onClick: function onClick() {
@@ -27405,7 +27400,6 @@
 	  }, {
 	    key: 'debounceUpdate',
 	    value: function debounceUpdate() {
-	      alert('HELLO');
 	      var context = this;
 	
 	      var el = document.getElementById('chart');
@@ -27416,7 +27410,6 @@
 	      var child = document.createElement('div').setAttribute('id', 'chart');
 	      parent.appendChild(child);
 	
-	      console.log('RECEIVING PROPS');
 	      google.charts.load("current", { packages: ["corechart"] });
 	      google.charts.setOnLoadCallback(drawChart);
 	      function drawChart() {

@@ -4,6 +4,13 @@ body {
   font-family: helvetica;
 }
 
+h1 {
+  padding: 20px;
+  background-color: white;
+  border-width: medium;
+  border-style: dashed;
+}
+
 .container {
   display: flex;
   flex-flow:column wrap;
@@ -17,7 +24,7 @@ body {
 }
 
 #depth {
-  width: 40px;
+  width: 45px;
 }
 
 .header {
@@ -27,6 +34,12 @@ body {
 }
 
 .graphs {
+  border-style: solid;
+  border-color: black;
+  border-radius: 10px;
+  border-width: medium;
+  padding: 30px;
+  background-color: white;
   margin-top: 20px;
 }
 
