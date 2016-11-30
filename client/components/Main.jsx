@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from './Input';
+import DomainGraph from './DomainGraph';
 import Histogram from './Histogram';
 
 class Main extends React.Component {
@@ -10,10 +11,13 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Domain Analyzer</h1>
         <Input />
-        <Histogram />
+        <div className="graphs">
+          <DomainGraph />
+          <Histogram />
+        </div>
       </div>
     );
   }

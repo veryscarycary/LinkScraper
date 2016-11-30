@@ -7,32 +7,54 @@ class Histogram extends React.Component {
   constructor() {
     super();
 
+    this.state = {
+      histogramData: []
+    };
+
+    this.debounceUpdate = _.debounce(this.debounceUpdate);
   }
 
-  componentDidMount() {
+  componentWillReceiveProps() {
     let context = this;
-    setTimeout(() => {
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(context.props.histogramData);
-
-        var options = {
-          title: 'Domains connected to ',
-          legend: { position: 'none' },
-        };
-
-        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    }, 3000);
+    this.setState({histogramData: this.props.histogramData});
+    this.debounceUpdate();
   }
+
+  debounceUpdate() {
+    alert('HELLO');
+    var context = this;
+
+    var el = document.getElementById('chart')
+    if (el) { el.parentNode.removeChild(el); }
+    var parent = document.getElementById('chart_div');
+    var child = document.createElement('div').setAttribute('id', 'chart');
+    parent.appendChild(child);
+
+
+    console.log('RECEIVING PROPS');
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable(context.props.histogramData);
+
+      var options = {
+        title: 'Connected Domains',
+        legend: { position: 'none' },
+      };
+
+      var chart = new google.visualization.Histogram(document.getElementById('chart'));
+      chart.draw(data, options);
+    };
+  };
 
   render() {
     return(
-      <div id='chart_div'></div>
+      <div id='chart_div'>
+        {this.state.histogramData.length > 1 ?
+          <div id='chart'></div> : null}
+      </div>
     );
-  }
+  };
 }
 
 const mapStateToProps = function(store) {

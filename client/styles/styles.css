@@ -1,3 +1,15 @@
+/* Pattern styles */
+body {
+  background-color: beige;
+}
+
+.container {
+  display: flex;
+  flex-flow:column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .loading {
   width: 30px;
   height: 30px;
@@ -5,6 +17,12 @@
 
 #depth {
   width: 40px;
+}
+
+.header {
+  background-color: #444444;
+  height:400px;
+  width:600px;
 }
 
 /*Table Stying*/
@@ -31,9 +49,9 @@ table.table-style td {
   background-color: #ffffff;
 }
 
-/*Historgram*/
+/*Histogram*/
 
-#histogram {
+#chart {
   width: 900px;
   height: 500px;
 }

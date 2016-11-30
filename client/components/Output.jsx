@@ -13,7 +13,7 @@ class Output extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="inner-container">
         <table className="table-style">
           <tbody>
             <tr>
