@@ -4,9 +4,7 @@
 .LSOverride
 Icon
 
-public/
-public/bundle.js
-public/bundle.js.map
+
 data.json
 
 # Node
