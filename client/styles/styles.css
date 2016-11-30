@@ -30,3 +30,10 @@ table.table-style td {
   border-color: #3A3A3A;
   background-color: #ffffff;
 }
+
+/*Historgram*/
+
+#histogram {
+  width: 900px;
+  height: 500px;
+}

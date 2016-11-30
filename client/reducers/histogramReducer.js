@@ -1,5 +1,5 @@
 const initialState = {
-  histogramData: []
+  histogramData: [['Domain', 'Length']]
 };
 
 const histogramReducer = function(state = initialState, action) {

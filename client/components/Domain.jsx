@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions/index';
+import update from 'immutability-helper';
 
 class Domain extends React.Component {
   constructor(props) {
@@ -11,7 +15,9 @@ class Domain extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getDomains(this);
+    this.props.getDomains(this).then((result) => {
+      this.props.updateHistogram(update(this.props.histogramData, {$push: [[this.props.link, this.state.output.length]]}));
+    });
   }
 
   render() {
@@ -32,4 +38,15 @@ class Domain extends React.Component {
   }
 };
 
-export default Domain;
+const mapStateToProps = function(store) {
+  console.log(store, 'this is the store!');
+  return {
+    histogramData: store.histogramReducer.histogramData
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Domain);

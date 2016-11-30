@@ -11,10 +11,6 @@ class Output extends React.Component {
 
   }
 
-  test() {
-    this.props.updateHistogram('like whatev');
-  }
-
   render() {
     return (
       <div>
@@ -31,7 +27,6 @@ class Output extends React.Component {
             ))}
           </tbody>
         </table>
-        <button onClick={this.test.bind(this)}>TEST</button>
       </div>
     );
   };
@@ -40,7 +35,7 @@ class Output extends React.Component {
 const mapStateToProps = function(store) {
   console.log(store, 'this is the store!');
   return {
-    currentUser: store.histogramReducer.histogramData
+    histogramData: store.histogramReducer.histogramData
   };
 };
 

@@ -1,6 +1,9 @@
 import React from 'react';
 import normalizeUrl from 'normalize-url';
 import url from 'url';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions/index';
 
 import Output from './Output';
 
@@ -16,6 +19,7 @@ class Input extends React.Component {
 
     this.setInput = this.setInput.bind(this);
     this.setDepth = this.setDepth.bind(this);
+    this.resetHistogramData = this.resetHistogramData.bind(this);
   }
 
   setInput(e) {
@@ -30,12 +34,10 @@ class Input extends React.Component {
     });
   }
 
-  normalizeURL() {
-
+  resetHistogramData() {
+    this.props.updateHistogram([]);
   }
 
-  // need to post url to backend to do the work
-  // also might need to include same-origin header to pass it to backend
   getDomains(context) {
     return fetch('/api/scrape', {
       method: 'POST',
@@ -53,8 +55,14 @@ class Input extends React.Component {
       context.setState({
         output: json
       });
+      return json;
     })
     .catch(err => console.log(err, 'There was an error getting the domains back!'));
+  }
+
+  submit(context) {
+    this.resetHistogramData();
+    this.getDomains(context);
   }
 
   render() {
@@ -64,7 +72,7 @@ class Input extends React.Component {
           <label htmlFor="depth">Link Depth</label><input type="number" id="depth" min="0" onChange={this.setDepth} />
           <br />
           <input type="text" id="input" onChange={this.setInput} />
-          <button type="button" onClick={()=>{this.getDomains(this)}}>Submit</button>
+          <button type="button" onClick={()=>{this.submit(this)}}>Submit</button>
         </form>
         <Output output={this.state.output} getDomains={this.getDomains} />
       </div>
@@ -72,4 +80,15 @@ class Input extends React.Component {
   };
 };
 
-export default Input;
+const mapStateToProps = function(store) {
+  console.log(store, 'this is the store!');
+  return {
+    histogramData: store.histogramReducer.histogramData
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Input);
