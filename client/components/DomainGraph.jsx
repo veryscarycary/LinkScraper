@@ -24,7 +24,6 @@ class DomainGraph extends React.Component {
       ]
     };
 
-    // this.calculateGraph = this.calculateGraph.bind(this);
     this.debounceUpdate = _.debounce(this.debounceUpdate, 500);
   }
 
@@ -63,7 +62,6 @@ class DomainGraph extends React.Component {
         xAxisLabel="Domains"
         yAxisLabel="# Urls per Domain"
         />
-        <button onClick={this.calculateGraph}>Calculate Graph</button>
       </div>
     );
   }

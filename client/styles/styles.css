@@ -1,6 +1,7 @@
 /* Pattern styles */
 body {
   background-color: beige;
+  font-family: helvetica;
 }
 
 .container {
@@ -25,7 +26,20 @@ body {
   width:600px;
 }
 
+.graphs {
+  margin-top: 20px;
+}
+
+form {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 /*Table Stying*/
+table {
+  width: 500px
+}
+
 table.table-style {
   font-family: verdana,arial,sans-serif;
   font-size:11px;
